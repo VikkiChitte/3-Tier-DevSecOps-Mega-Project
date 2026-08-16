@@ -77,7 +77,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           #trivy-config: trivy.yaml
 
-  sonar-fronend:
+  sonar-frontend:
     runs-on: agent-2
     needs: trivy-fs-scan
     steps:
@@ -96,3 +96,21 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
         
+  sonar-backend:
+    runs-on: agent-2
+    needs: sonar-frontend
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: SonarQube Scan (api)
+        uses: SonarSource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: api
+          args: >
+            -Dsonar.projectName=myorg_api
+            -Dsonar.projectKey=myorg_api
+            -Dsonar.sources=.
+            -Dsonar.test.exclusions=**/node_modules/**,**/dist/**,**/build/**
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
