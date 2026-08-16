@@ -44,3 +44,17 @@ jobs:
     # - run: npm ci
     # - run: npm run build --if-present
     # - run: npm test
+
+  gitleaks-scan:
+    runs-on: agent-2
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Gitleaks Setup
+        uses: actions/gitleaks-action@v2
+
+      - name: Gitleaks Scan
+        run: |
+          gitleaks detect --source ./client --exit-code 1
+          gitleaks detect --source ./api --exit-code 1
