@@ -88,8 +88,7 @@ jobs:
         with:
           projectBaseDir: client
           args: >
-            -Dsonar.organization=myorg_client # For SonarQube Cloud only
-            "-Dsonar.projectName=myorg_client"
+            -Dsonar.projectName=myorg_client
             -Dsonar.projectKey=myorg_client
             -Dsonar.sources=.
             -Dsonar.test.exclusions=**/node_modules/**,**/dist/**,**/build/**
