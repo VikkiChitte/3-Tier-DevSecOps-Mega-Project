@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Gitleaks Setup
-        uses: actions/gitleaks-action@v3
+        uses: gitleaks/gitleaks-action@v3
 
       - name: Gitleaks Scan
         run: |
